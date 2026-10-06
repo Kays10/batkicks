@@ -15,6 +15,7 @@ let currentHeroSlide = 0;
 let carouselInterval;
 let carouselFadeTimeout;
 let carouselUserPaused = false;
+const CAROUSEL_FADE_OUT_MS = 500;
 
 let products = [];
 
@@ -119,7 +120,7 @@ function showFeaturedSlide(index, immediate = false) {
   }
 
   featuredImage.classList.add("is-changing");
-  carouselFadeTimeout = window.setTimeout(applySlide, 180);
+  carouselFadeTimeout = window.setTimeout(applySlide, CAROUSEL_FADE_OUT_MS);
 }
 
 function initializeHeroCarousel() {

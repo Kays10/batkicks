@@ -284,7 +284,7 @@ button { font: inherit; }
   height: 500px;
   object-fit: cover;
   filter: saturate(1.02) contrast(1.04);
-  transition: opacity 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 0.45s ease-in-out;
 }
 .showcase-frame img.is-changing { opacity: 0; }
 
