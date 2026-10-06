@@ -1,0 +1,9 @@
+.vercel
+.DS_Store
+.claude/
+*.bak
+assets/Screenshot 2026-09-29 at 12.56.23.png
+inventory.md
+package-lock.json
+server.log
+test.js
