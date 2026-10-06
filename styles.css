@@ -399,7 +399,7 @@ button { font: inherit; }
   border-color: rgba(212, 175, 104, 0.36);
 }
 .product-card:hover .product-image-wrap img {
-  transform: scale(1.035);
+  transform: scale(1.08);
 }
 .product-card::before {
   display: none;
@@ -412,7 +412,7 @@ button { font: inherit; }
   object-fit: cover;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(9,14,18,1), rgba(18,26,33,1));
-  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .product-meta { padding: 1rem 1.1rem 1.3rem; }
 .meta-top {
@@ -591,8 +591,8 @@ button { font: inherit; }
 .secondary-button:hover,
 .filter-btn:hover,
 .cta-actions a:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.04);
+  transform: translateY(-3px);
+  filter: brightness(1.06);
 }
 
 .nav-button:active,
@@ -602,11 +602,14 @@ button { font: inherit; }
   transform: translateY(0);
 }
 
-.reveal { transition: opacity 0.72s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.has-motion .reveal { opacity: 0; transform: translateY(22px); transition-delay: var(--reveal-delay, 0ms); }
+.reveal { transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.has-motion .reveal { opacity: 0; transform: translateY(40px); transition-delay: var(--reveal-delay, 0ms); }
 .has-motion .reveal.visible { opacity: 1; transform: translateY(0); }
 .hero-copy.reveal { --reveal-delay: 80ms; }
 .hero-visual.reveal { --reveal-delay: 220ms; }
+.has-motion .hero-visual.reveal { transform: translateY(36px) scale(0.97); }
+.has-motion .hero-visual.reveal.visible { transform: translateY(0) scale(1); }
+.product-card.reveal { transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.22s ease; }
 
 :focus-visible {
   outline: 2px solid var(--gold);
@@ -626,16 +629,16 @@ button { font: inherit; }
 
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-14px); }
 }
 
 @keyframes badgeEntrance {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translate(1rem, 0.5rem) scale(0.92); }
+  to { opacity: 1; transform: translate(1rem, 1rem) scale(1); }
 }
 
-.hero-visual img { animation: heroFloat 7s ease-in-out 0.8s infinite; }
-.showcase-badge { animation: badgeEntrance 0.6s ease 0.35s both; }
+.hero-visual img { animation: heroFloat 4.8s ease-in-out 0.4s infinite; }
+.showcase-badge { animation: badgeEntrance 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s both; }
 
 @media (max-width: 900px) {
   .hero,
@@ -677,7 +680,7 @@ button { font: inherit; }
 }
 
 @media (hover: hover) {
-  .product-card:hover .product-image-wrap img { transform: scale(1.035); }
+  .product-card:hover .product-image-wrap img { transform: scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {
