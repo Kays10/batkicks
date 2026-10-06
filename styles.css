@@ -273,6 +273,7 @@ button { font: inherit; }
 }
 
 .showcase-frame {
+  position: relative;
   border-radius: 22px;
   overflow: hidden;
   background: linear-gradient(160deg, rgba(18,24,33,1), rgba(15,19,26,1));
@@ -283,7 +284,9 @@ button { font: inherit; }
   height: 500px;
   object-fit: cover;
   filter: saturate(1.02) contrast(1.04);
+  transition: opacity 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+.showcase-frame img.is-changing { opacity: 0; }
 
 .showcase-info {
   display: flex;
@@ -307,6 +310,76 @@ button { font: inherit; }
   gap: 0.2rem;
 }
 .showcase-meta strong { font-size: 1.8rem; letter-spacing: -0.05em; }
+
+.showcase-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.8rem 0 0.15rem;
+}
+
+.carousel-arrow,
+.carousel-toggle,
+.showcase-dot {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.carousel-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.showcase-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.05rem;
+}
+
+.showcase-dot {
+  width: 32px;
+  height: 36px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+}
+
+.showcase-dot span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--muted);
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.showcase-dot.is-active span {
+  width: 19px;
+  background: var(--gold);
+}
+
+.carousel-toggle {
+  min-width: 58px;
+  height: 36px;
+  padding: 0 0.65rem;
+  border-radius: 999px;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.carousel-toggle:disabled { cursor: default; opacity: 0.65; }
+.carousel-arrow:hover:not(:disabled),
+.carousel-toggle:hover:not(:disabled) { border-color: rgba(212, 175, 104, 0.5); }
 
 .brand-strip {
   display: grid;
@@ -677,6 +750,10 @@ button { font: inherit; }
   .footer-shell { flex-direction: column; justify-content: center; padding: 1rem 0; }
   .product-footer { align-items: flex-start; flex-direction: column; }
   .product-enquiry { width: 100%; }
+  .showcase-controls { gap: 0.25rem; }
+  .carousel-arrow { width: 32px; height: 32px; }
+  .showcase-dot { width: 24px; height: 32px; }
+  .carousel-toggle { min-width: 54px; height: 32px; padding: 0 0.5rem; }
 }
 
 @media (hover: hover) {

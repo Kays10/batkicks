@@ -58,12 +58,12 @@
         </div>
 
         <div class="hero-visual reveal">
-          <div class="showcase-panel">
-            <div class="showcase-badge">Top pick</div>
+          <div class="showcase-panel" role="region" aria-label="Featured sneaker slideshow" aria-roledescription="carousel">
+            <div class="showcase-badge">Featured</div>
             <div class="showcase-frame">
               <img id="featured-image" src="assets/hero.jpg" alt="Featured Batkicks sneaker" fetchpriority="high" />
             </div>
-            <div class="showcase-info">
+            <div class="showcase-info" aria-live="off">
               <div>
                 <span id="featured-brand">Brand</span>
                 <h2 id="featured-name">Collection drop</h2>
@@ -72,6 +72,12 @@
                 <span id="featured-size">Size</span>
                 
               </div>
+            </div>
+            <div class="showcase-controls" role="group" aria-label="Slideshow controls">
+              <button class="carousel-arrow" type="button" data-carousel-step="-1" aria-label="Previous featured sneaker"><span aria-hidden="true">&lsaquo;</span></button>
+              <div class="showcase-dots" id="featured-dots" role="group" aria-label="Choose a featured sneaker"></div>
+              <button class="carousel-arrow" type="button" data-carousel-step="1" aria-label="Next featured sneaker"><span aria-hidden="true">&rsaquo;</span></button>
+              <button class="carousel-toggle" id="carousel-toggle" type="button" aria-pressed="false">Pause</button>
             </div>
           </div>
         </div>
