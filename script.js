@@ -5,7 +5,7 @@ const featuredBrand = document.getElementById("featured-brand");
 const featuredName = document.getElementById("featured-name");
 const featuredSize = document.getElementById("featured-size");
 const totalProducts = document.getElementById("total-products");
-const revealItems = document.querySelectorAll(".reveal");
+let revealObserver;
 
 let products = [];
 
@@ -80,7 +80,7 @@ function renderProducts(filter = "all") {
       ? products
       : products.filter((product) => product.brand === filter);
 
-  productGrid.innerHTML = visibleProducts.map((product) => {
+  productGrid.innerHTML = visibleProducts.map((product, index) => {
     const productName = escapeHtml(product.product_name);
     const brand = escapeHtml(product.brand);
     const description = escapeHtml(product.source);
@@ -88,7 +88,7 @@ function renderProducts(filter = "all") {
     const message = `Hi Batkicks, I'm interested in ${product.product_name} (Size ${product.size}) listed at ${money(product.price)}. Is it available?`;
 
     return `
-    <article class="product-card">
+    <article class="product-card reveal" style="--reveal-delay: ${Math.min(index % 3, 2) * 80}ms">
       <div class="product-image-wrap">
         <img alt="${productName}" loading="lazy" decoding="async" />
       </div>
@@ -114,6 +114,8 @@ function renderProducts(filter = "all") {
     const product = visibleProducts[index];
     if (product) setProductImage(img, product.filename, product.product_name);
   });
+
+  observeRevealItems(productGrid);
 }
 
 function closeMobileMenu() {
@@ -140,28 +142,28 @@ if (menuToggle && mainNav) {
   });
 }
 
-function revealOnScroll() {
-  console.log('revealOnScroll called, revealItems count:', revealItems.length);
-  if (revealItems.length === 0) {
-    console.log('No reveal items found!');
+function observeRevealItems(root = document) {
+  const items = root.querySelectorAll(".reveal:not(.visible)");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("visible"));
     return;
   }
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
 
-  revealItems.forEach((item) => {
-    console.log('Observing item:', item);
-    observer.observe(item);
-  });
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" }
+    );
+  }
+
+  items.forEach((item) => revealObserver.observe(item));
 }
 
 async function loadProducts() {
@@ -203,6 +205,6 @@ async function loadProducts() {
 }
 
 // Filter UI removed; all products shown by default
-
-revealOnScroll();
+document.documentElement.classList.add("has-motion");
+observeRevealItems();
 loadProducts();

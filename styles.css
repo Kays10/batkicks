@@ -399,8 +399,7 @@ button { font: inherit; }
   border-color: rgba(212, 175, 104, 0.36);
 }
 .product-card:hover .product-image-wrap img {
-  transform: scale(1.05) rotate(1deg);
-  transition: transform 0.3s ease;
+  transform: scale(1.035);
 }
 .product-card::before {
   display: none;
@@ -413,6 +412,7 @@ button { font: inherit; }
   object-fit: cover;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(9,14,18,1), rgba(18,26,33,1));
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .product-meta { padding: 1rem 1.1rem 1.3rem; }
 .meta-top {
@@ -591,23 +591,27 @@ button { font: inherit; }
 .secondary-button:hover,
 .filter-btn:hover,
 .cta-actions a:hover {
-  transform: none;
-  filter: none;
+  transform: translateY(-1px);
+  filter: brightness(1.04);
 }
 
-.reveal { opacity: 0; transform: translateY(23px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.nav-button:active,
+.primary-button:active,
+.secondary-button:active,
+.cta-actions a:active {
+  transform: translateY(0);
+}
+
+.reveal { transition: opacity 0.72s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.has-motion .reveal { opacity: 0; transform: translateY(22px); transition-delay: var(--reveal-delay, 0ms); }
+.has-motion .reveal.visible { opacity: 1; transform: translateY(0); }
+.hero-copy.reveal { --reveal-delay: 80ms; }
+.hero-visual.reveal { --reveal-delay: 220ms; }
 
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
-.reveal:nth-child(2) { transition-delay: 0.1s; }
-.reveal:nth-child(3) { transition-delay: 0.2s; }
-.reveal:nth-child(4) { transition-delay: 0.3s; }
-.reveal:nth-child(5) { transition-delay: 0.4s; }
-.reveal:nth-child(6) { transition-delay: 0.5s; }
-
 @media (max-width: 900px) {
   .hero,
   .story-section {
@@ -622,16 +626,16 @@ button { font: inherit; }
 
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-6px); }
 }
 
-@keyframes badgePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes badgeEntrance {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.hero-visual img { animation: heroFloat 6s ease-in-out infinite; }
-.showcase-badge { animation: badgePulse 3s ease-in-out infinite; }
+.hero-visual img { animation: heroFloat 7s ease-in-out 0.8s infinite; }
+.showcase-badge { animation: badgeEntrance 0.6s ease 0.35s both; }
 
 @media (max-width: 900px) {
   .hero,
@@ -670,4 +674,23 @@ button { font: inherit; }
   .footer-shell { flex-direction: column; justify-content: center; padding: 1rem 0; }
   .product-footer { align-items: flex-start; flex-direction: column; }
   .product-enquiry { width: 100%; }
+}
+
+@media (hover: hover) {
+  .product-card:hover .product-image-wrap img { transform: scale(1.035); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .has-motion .reveal,
+  .has-motion .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
 }
